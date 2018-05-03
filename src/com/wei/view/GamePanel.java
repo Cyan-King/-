@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
 
         //重新显示----显示障碍物的信息
         if (shape != null && ground != null){
-            ground.drawMe();
+            ground.drawMe(g);
             shape.drawMe(g);
         }
     }

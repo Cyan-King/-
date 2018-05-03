@@ -17,6 +17,7 @@ public class Controllet extends KeyAdapter implements ShapeLister {
     private ShapeFactory shapeFactory;
     private GamePanel gamePanel;
 
+    //键盘事件
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -33,7 +34,7 @@ public class Controllet extends KeyAdapter implements ShapeLister {
                     shape.moveRight();
                 break;
             case KeyEvent.VK_DOWN:
-                if (ground.isMoveable(shape, Shape.DOWN))
+                if (isShapeMoveable(shape))
                     shape.moveDown();
                 break;
         }
@@ -43,21 +44,39 @@ public class Controllet extends KeyAdapter implements ShapeLister {
 
     }
 
+    //不停的下落
     @Override
     public void shapeMoveDown(Shape shape) {
         gamePanel.disPlay(shape, ground);
     }
 
+    //监听界面的边框底部的触底事件
     @Override
-    public boolean isShapeMoveable(Shape shape) {
-        boolean moveable = ground.isMoveable(shape, Shape.DOWN);
-        return moveable;
+    public synchronized boolean isShapeMoveable(Shape shape) {
+
+        if (this.shape != shape){
+            return  false;
+        }
+
+        //如果到底的话就执行isMoveable方法
+        if (ground.isMoveable(shape, Shape.DOWN)){
+            return true;
+        }
+        //然后再执行acept()方法---再Ground里面接收一个图像
+        ground.accept(this.shape);
+        if (!ground.ifFull()){
+            //然后再次生产一个图像
+            this.shape = shapeFactory.getShape(this);
+        }
+        return false;
     }
 
+    //创建一个新的界面
     public void newGame() {
         shape = shapeFactory.getShape(this);
     }
 
+    //控制层的构造方法
     public Controllet(ShapeFactory shapeFactory, Ground ground, GamePanel gamePanel) {
         this.shapeFactory = shapeFactory;
         this.ground = ground;

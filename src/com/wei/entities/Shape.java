@@ -60,6 +60,7 @@ public class Shape {
         for (int x = 0; x < 4; x++){
             for (int y = 0; y < 4; y++){
 
+                //画出我们想要的图像
                 if (getFlagByPoint(x, y)){
                     g.fill3DRect((left + x) * CELL_SIZE, (top + y) * CELL_SIZE, CELL_SIZE, CELL_SIZE, true);
                 }

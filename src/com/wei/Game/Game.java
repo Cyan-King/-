@@ -25,6 +25,7 @@ public class Game {
         //添加监听器
         jFrame.addKeyListener(controllet);
         gamePanel.addKeyListener(controllet);
+
         jFrame.setVisible(true);
         controllet.newGame();
 
