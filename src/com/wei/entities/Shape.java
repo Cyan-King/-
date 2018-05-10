@@ -19,7 +19,7 @@ public class Shape {
     public static final int RIGHT = 2;//是否向右
     public static final int DOWN = 3;//是否向下
 
-    //图形的各种形态
+    //各种的图形
     private  int [][] body;
     //一种图形的各种形态
     private  int status;
@@ -28,17 +28,22 @@ public class Shape {
     //top--位置信息
     private int top;
 
+    //监听事件
     public ShapeLister shapeLister;
 
+    //向左移
     public void moveLeft(){
         System.out.println("moveLeft");
         left--;
-
     }
+
+    //向右移
     public void moveRight(){
         System.out.println("moveRight");
         left++;
     }
+
+    //向下
     public void moveDown(){
         System.out.println("moveDown");
         top++;
@@ -49,7 +54,7 @@ public class Shape {
         status = (status + 1) % body.length;
     }
 
-    //显示的方法
+    //顯示圖像的方法
     public void drawMe(Graphics g){
         System.out.println("shape----drawMe()----------");
 
@@ -60,7 +65,7 @@ public class Shape {
         for (int x = 0; x < 4; x++){
             for (int y = 0; y < 4; y++){
 
-                //画出我们想要的图像
+                //画出我们想要的图像----我们的到x，y轴
                 if (getFlagByPoint(x, y)){
                     g.fill3DRect((left + x) * CELL_SIZE, (top + y) * CELL_SIZE, CELL_SIZE, CELL_SIZE, true);
                 }
@@ -69,6 +74,7 @@ public class Shape {
 
     }
 
+    //得到坐标画出图形
     public boolean getFlagByPoint(int x, int y){
         return body[status][y * 4 + x] == 1;
 

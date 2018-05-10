@@ -43,13 +43,18 @@ public class Ground {
         }
     }
 
+    //删除这一行
     private void delteLine(int lineNum) {
+        //循环所以的行数
         for (int y = lineNum; y > 0; y--){
+            //循环行数中的所有格点
             for (int x = 0; x < Global.WIDTH; x++){
+                //得到这一行，然后下降一行
                 obstacles[x][y] = obstacles[x][y-1];
             }
         }
 
+        //消除这一行
         for (int x = 0; x < Global.WIDTH; x++){
             obstacles[x][0] = 0;
         }
@@ -62,7 +67,7 @@ public class Ground {
         //方块落下后的颜色
         g.setColor(Color.yellow);
 
-        //显示出障碍物，循环遍历障碍物的数组
+        //显示出障碍物，循环遍历障碍物的数组，若是1的话就是障碍物我们显示出来，若是0的话就不是障碍物我们不显示出来
         for (int x = 0; x < Global.WIDTH; x++){
             for (int y = 0; y < Global.HEIGHT; y++){
                 if (obstacles[x][y] == 1){
